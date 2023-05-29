@@ -1,7 +1,9 @@
+# Deep Clustering with Incomplete Noisy Pairwise Annotations: A Geometric Regularization Approach
+
 This repo provides Python implementation of the work "Deep Clustering with Incomplete Noisy Pairwise Annotations: A Geometric Regularization Approach", accepted to ICML 2023.
 
 
-* Setup
+## Setup
 
 - Clone this project: `git clone https://github.com/ductri/VolMaxDCC`
 - `cd VolMaxDCC`
@@ -10,7 +12,7 @@ This repo provides Python implementation of the work "Deep Clustering with Incom
 
 
 
-* Training
+## Training
 We have set a default configution. Without any change, you should able to perform:
 
 - Training the experiment on ImageNet10 in noiseless pairwise setting:
