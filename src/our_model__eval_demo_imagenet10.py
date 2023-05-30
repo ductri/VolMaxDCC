@@ -9,7 +9,7 @@ np.set_printoptions(suppress=True, precision=4)
 
 
 if __name__ == "__main__":
-    m = 8994
+    m = 10000
     dataset_name = 'imagenet10-cc-10k'
 
     print(f'dataset: {dataset_name}')

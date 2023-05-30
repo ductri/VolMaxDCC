@@ -11,7 +11,7 @@ from our_model_training_utils import sub_main, main
 
 if __name__ == "__main__":
     start = time.time()
-    m = 8994
+    m = 10000
     lam = 1e-2
     p = 'real'
     trial = 0
