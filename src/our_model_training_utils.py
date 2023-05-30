@@ -10,8 +10,7 @@ from tqdm import tqdm
 from joblib import Parallel, delayed
 
 from utils import aux_tools
-from our_model import OurModel, OurModelNew, OurModelHacking
-from my_resnet import get_resnet
+from our_model import OurModel
 
 
 def train(model, optimizer, data_loader, model_path, lam, X, args):
@@ -73,9 +72,7 @@ def sub_main(lam, is_B_trainable, p, trial, m, list_hiddens, dataset_name, epoch
         print(f'Examples of index pairs: {str(dataset.ind_pairs[:5])}')
     class_num = 10
 
-    # backbone = torch.hub.load('pytorch/vision:v0.10.0', 'resnet18', pretrained=False)
-    backbone = get_resnet('ResNet18')
-    model = OurModelHacking(backbone, is_B_trainable=is_B_trainable, B_init=None, device=device)
+    model = OurModel([512, 512, 10], is_B_trainable=is_B_trainable, B_init=None, device=device)
     model = model.to('cuda')
     print('Number of trainable var: %d\n' % aux_tools.count_parameters(model))
 
