@@ -47,30 +47,30 @@ n04285008
 n04467665
 n07747607
 ```
-Download all images of these class and store them in some directory, such as `imagenet10/`. The folder should look like
+Download all images of these class and store them in some directory, for example `imagenet10/raw`. The folder should look like
 ```
-imagenet10/
-|---n02056570/
-|---n02085936/
-|---n02128757/
-|---n02690373/
-|---n02692877/
-|---n03095699/
-|---n04254680/
-|---n04285008/
-|---n04467665/
-|---n07747607/
+imagenet10/raw
+           |---n02056570/
+           |---n02085936/
+           |---n02128757/
+           |---n02690373/
+           |---n02692877/
+           |---n03095699/
+           |---n04254680/
+           |---n04285008/
+           |---n04467665/
+           |---n07747607/
 ```
 - Load the dataset using
 ```
-dataset = torchvision.datasets.ImageFolder('imagenet10')
+dataset = torchvision.datasets.ImageFolder('imagenet10/raw')
 ```
-The order of this `dataset` __matters__. Just follow the default deterministic behavior of `torchvision.datasets.ImageFolder`.
+The order of this `dataset` __matters__.
 
 - Load pairwise indices
 ```
 import pickle as pkl
-with open('pair_8994_real_imagenet10-cc-10k_trial_0.pkl', 'rb') as i_f:
+with open('datasets/imagenet10/pairs/pair_8994_real_imagenet10-cc-10k_trial_0.pkl', 'rb') as i_f:
     pairwise_data = pkl.load(i_f)
 ```
 

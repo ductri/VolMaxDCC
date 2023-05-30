@@ -13,7 +13,7 @@ if __name__ == "__main__":
     start = time.time()
     m = 10000
     lam = 1e-2
-    p = 'real'
+    p = '-1'
     trial = 0
     is_B_trainable = False
 
