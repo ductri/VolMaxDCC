@@ -32,11 +32,12 @@ def load_data(name, batch_size=32, num_workers=8):
         true_label_pairs = data_dict['true_label_pairs']
         X = data_dict['X']
         true_y = data_dict['true_y']
-        print('#Nodes: %d \t #Edges: %d \n' % (len(X), len(ind_pairs)))
+        print('#Data: %d \t #Pairs: %d \n' % (len(X), len(ind_pairs)))
         flipping_rate = 1-((label_pairs==true_label_pairs)*1.0).mean()
     else:
         raise Exception('typo')
 
+    data_pairs = PairDataset(ind_pairs, label_pairs, X)
     data_loader = torch.utils.data.DataLoader(
         data_pairs,
         batch_size=batch_size,
@@ -70,3 +71,7 @@ def save_model2(model_path, model, optimizer, current_epoch):
     torch.save(state, out)
     print('Save model to %s' % model_path)
 
+def get_accuracy(pred, y):
+    pred = pred.cpu().detach().numpy()
+    y = y.cpu().detach().numpy()
+    return np.mean(pred==y)

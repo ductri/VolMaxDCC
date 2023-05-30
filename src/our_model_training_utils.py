@@ -52,7 +52,7 @@ def train(model, optimizer, data_loader, model_path, lam, X, args):
         print(f"Epoch [{epoch}/{args.epochs}] \t Loss: {loss_epoch / len(data_loader):.5} Loss1: {loss1_epoch / len(data_loader):.5} Loss2: {loss2_epoch / len(data_loader):.5} Acc: {acc_epoch / len(data_loader):.5} lam={lam:.5} grad_norm={total_norm/len(data_loader):.5}")
     aux_tools.save_model2(model_path, model, optimizer, args.epochs)
 
-def sub_main(lam, is_B_trainable, p, trial, m, list_hiddens, dataset_name, epochs=100, lr=1e-2, B_init=None, num_workers=0, debug=False, optimizer_name='adam'):
+def sub_main(lam, is_B_trainable, p, trial, list_hiddens, dataset_name, epochs=100, lr=1e-2, B_init=None, num_workers=0, debug=False, optimizer_name='adam'):
     START = time.time()
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
@@ -66,13 +66,10 @@ def sub_main(lam, is_B_trainable, p, trial, m, list_hiddens, dataset_name, epoch
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     # prepare data
-    data_loader, dataset = aux_tools.load_data(dataset_name, batch_size=128, \
-            num_workers=num_workers, m=m, include_dataset=True, p=p, trial=trial)
-    if debug:
-        print(f'Examples of index pairs: {str(dataset.ind_pairs[:5])}')
+    data_loader = aux_tools.load_data(dataset_name, batch_size=128, num_workers=num_workers)
     class_num = 10
 
-    model = OurModel([512, 512, 10], is_B_trainable=is_B_trainable, B_init=None, device=device)
+    model = OurModel(list_hiddens, is_B_trainable=is_B_trainable, B_init=None, device=device)
     model = model.to('cuda')
     print('Number of trainable var: %d\n' % aux_tools.count_parameters(model))
 
@@ -86,7 +83,7 @@ def sub_main(lam, is_B_trainable, p, trial, m, list_hiddens, dataset_name, epoch
     else:
         raise Exception('not proper optimizer')
 
-    code_name = f'our_model-ds={dataset_name}-m={m}-noise={str(p):s}-trial={trial:d}-L={len(list_hiddens)}'
+    code_name = f'our_model-ds={dataset_name}'
     if is_B_trainable:
         code_name = f'{code_name}-lam={lam:e}'
     model_path = 'save/%s'%code_name

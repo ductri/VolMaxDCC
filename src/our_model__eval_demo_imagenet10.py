@@ -20,11 +20,9 @@ if __name__ == "__main__":
     lam = 1e-2
     is_B_trainable = False
 
-    with open('datasets/imagenet10/imagenet10.pkl', 'rb') as i_f:
-        data_pkl = pkl.load(i_f)
-    with open('datasets/imagenet10/real/meta_data.pkl', 'rb') as i_f:
-        meta_dict = pkl.load(i_f)
-    shuffled_inds = meta_dict['shuffle_inds']
+    X = np.load('datasets/imagenet10/feature.npy')
+    y = np.load('datasets/imagenet10/label.npy')
+    shuffled_inds = range(13000)
 
     N = meta_dict['N']
     X_train = data_pkl['X'][shuffled_inds[:N]]
